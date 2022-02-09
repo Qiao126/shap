@@ -557,7 +557,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
     ax2=ax.twiny()
     ax2.set_xlim(xmin,xmax)
     ax2.set_xticks([expected_value, expected_value+1e-8]) # The 1e-8 is so matplotlib 3.3 doesn't try and collapse the ticks
-    ax2.set_xticklabels(["\n$BaseP$","\n$ = "+format_value(expected_value, "%0.03f")+"$"], fontsize=12, ha="left")
+    ax2.set_xticklabels(["\n$E[Prob]$","\n$ = "+format_value(expected_value, "%0.03f")+"$"], fontsize=12, ha="left")
     ax2.spines['right'].set_visible(False)
     ax2.spines['top'].set_visible(False)
     ax2.spines['left'].set_visible(False)
