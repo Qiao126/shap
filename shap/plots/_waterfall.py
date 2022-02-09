@@ -531,7 +531,8 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
             )
 
     # draw the y-ticks twice, once in gray and then again with just the feature names in black
-    pl.yticks(list(range(num_features))*2, yticklabels[:-1] + [l.split('=')[-1] for l in yticklabels[:-1]], fontsize=13)
+    ytick_pos = list(range(num_features)) + list(np.arange(num_features)+1e-8) # The 1e-8 is so matplotlib 3.3 doesn't try and collapse the ticks
+    pl.yticks(ytick_pos, yticklabels[:-1] + [l.split('=')[-1] for l in yticklabels[:-1]], fontsize=13)
     
     # put horizontal lines for each feature row
     for i in range(num_features):
@@ -555,8 +556,8 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
     xmin,xmax = ax.get_xlim()
     ax2=ax.twiny()
     ax2.set_xlim(xmin,xmax)
-    ax2.set_xticks([expected_value, expected_value])
-    ax2.set_xticklabels(["\n$E[f(X)]$","\n$ = "+format_value(expected_value, "%0.03f")+"$"], fontsize=12, ha="left")
+    ax2.set_xticks([expected_value, expected_value+1e-8]) # The 1e-8 is so matplotlib 3.3 doesn't try and collapse the ticks
+    ax2.set_xticklabels(["\n$Base probability$","\n$ = "+format_value(expected_value, "%0.03f")+"$"], fontsize=12, ha="left")
     ax2.spines['right'].set_visible(False)
     ax2.spines['top'].set_visible(False)
     ax2.spines['left'].set_visible(False)
@@ -564,8 +565,8 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
     # draw the f(x) tick mark
     ax3=ax2.twiny()
     ax3.set_xlim(xmin,xmax)
-    ax3.set_xticks([expected_value + shap_values.sum()] * 2)
-    ax3.set_xticklabels(["$f(x)$","$ = "+format_value(fx, "%0.03f")+"$"], fontsize=12, ha="left")
+    ax3.set_xticks([expected_value + shap_values.sum(), expected_value + shap_values.sum() + 1e-8]) # The 1e-8 is so matplotlib 3.3 doesn't try and collapse the ticks
+    ax3.set_xticklabels(["$Probability$","$ = "+format_value(fx, "%0.03f")+"$"], fontsize=12, ha="left")
     tick_labels = ax3.xaxis.get_majorticklabels()
     tick_labels[0].set_transform(tick_labels[0].get_transform() + matplotlib.transforms.ScaledTranslation(-10/72., 0, fig.dpi_scale_trans))
     tick_labels[1].set_transform(tick_labels[1].get_transform() + matplotlib.transforms.ScaledTranslation(12/72., 0, fig.dpi_scale_trans))
@@ -574,7 +575,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
     ax3.spines['top'].set_visible(False)
     ax3.spines['left'].set_visible(False)
 
-    # adjust the position of the E[f(X)] = x.xx label
+    # adjust the position of the Base probability = x.xx label
     tick_labels = ax2.xaxis.get_majorticklabels()
     tick_labels[0].set_transform(tick_labels[0].get_transform() + matplotlib.transforms.ScaledTranslation(-20/72., 0, fig.dpi_scale_trans))
     tick_labels[1].set_transform(tick_labels[1].get_transform() + matplotlib.transforms.ScaledTranslation(22/72., -1/72., fig.dpi_scale_trans))
