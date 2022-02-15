@@ -477,7 +477,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
             )
 
         txt_obj = pl.text(
-            pos_lefts[i] + 0.5*dist, pos_inds[i], format_value(pos_widths[i], '%+0.02f'),
+            pos_lefts[i] + 0.5*dist, pos_inds[i], format_value(pos_widths[i], '%+0.03f'),
             horizontalalignment='center', verticalalignment='center', color="white",
             fontsize=12
         )
@@ -489,7 +489,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
             txt_obj.remove()
             
             txt_obj = pl.text(
-                pos_lefts[i] + (5/72)*bbox_to_xscale + dist, pos_inds[i], format_value(pos_widths[i], '%+0.02f'),
+                pos_lefts[i] + (5/72)*bbox_to_xscale + dist, pos_inds[i], format_value(pos_widths[i], '%+0.03f'),
                 horizontalalignment='left', verticalalignment='center', color=colors.red_rgb,
                 fontsize=12
             )
@@ -513,7 +513,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
             )
         
         txt_obj = pl.text(
-            neg_lefts[i] + 0.5*dist, neg_inds[i], format_value(neg_widths[i], '%+0.02f'),
+            neg_lefts[i] + 0.5*dist, neg_inds[i], format_value(neg_widths[i], '%+0.03f'),
             horizontalalignment='center', verticalalignment='center', color="white",
             fontsize=12
         )
@@ -525,7 +525,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
             txt_obj.remove()
             
             txt_obj = pl.text(
-                neg_lefts[i] - (5/72)*bbox_to_xscale + dist, neg_inds[i], format_value(neg_widths[i], '%+0.02f'),
+                neg_lefts[i] - (5/72)*bbox_to_xscale + dist, neg_inds[i], format_value(neg_widths[i], '%+0.03f'),
                 horizontalalignment='right', verticalalignment='center', color=colors.blue_rgb,
                 fontsize=12
             )
