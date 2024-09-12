@@ -477,7 +477,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
             )
 
         txt_obj = pl.text(
-            pos_lefts[i] + 0.5*dist, pos_inds[i], format_value(pos_widths[i], '%+0.02f'),
+            pos_lefts[i] + 0.5*dist, pos_inds[i], format_value(pos_widths[i], '%+0.03f'),
             horizontalalignment='center', verticalalignment='center', color="white",
             fontsize=12
         )
@@ -489,7 +489,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
             txt_obj.remove()
             
             txt_obj = pl.text(
-                pos_lefts[i] + (5/72)*bbox_to_xscale + dist, pos_inds[i], format_value(pos_widths[i], '%+0.02f'),
+                pos_lefts[i] + (5/72)*bbox_to_xscale + dist, pos_inds[i], format_value(pos_widths[i], '%+0.03f'),
                 horizontalalignment='left', verticalalignment='center', color=colors.red_rgb,
                 fontsize=12
             )
@@ -513,7 +513,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
             )
         
         txt_obj = pl.text(
-            neg_lefts[i] + 0.5*dist, neg_inds[i], format_value(neg_widths[i], '%+0.02f'),
+            neg_lefts[i] + 0.5*dist, neg_inds[i], format_value(neg_widths[i], '%+0.03f'),
             horizontalalignment='center', verticalalignment='center', color="white",
             fontsize=12
         )
@@ -525,7 +525,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
             txt_obj.remove()
             
             txt_obj = pl.text(
-                neg_lefts[i] - (5/72)*bbox_to_xscale + dist, neg_inds[i], format_value(neg_widths[i], '%+0.02f'),
+                neg_lefts[i] - (5/72)*bbox_to_xscale + dist, neg_inds[i], format_value(neg_widths[i], '%+0.03f'),
                 horizontalalignment='right', verticalalignment='center', color=colors.blue_rgb,
                 fontsize=12
             )
@@ -557,7 +557,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
     ax2=ax.twiny()
     ax2.set_xlim(xmin,xmax)
     ax2.set_xticks([expected_value, expected_value+1e-8]) # The 1e-8 is so matplotlib 3.3 doesn't try and collapse the ticks
-    ax2.set_xticklabels(["\n$Base probability$","\n$ = "+format_value(expected_value, "%0.03f")+"$"], fontsize=12, ha="left")
+    ax2.set_xticklabels(["\n$E[Prob]$","\n$ = "+format_value(expected_value, "%0.03f")+"$"], fontsize=12, ha="left")
     ax2.spines['right'].set_visible(False)
     ax2.spines['top'].set_visible(False)
     ax2.spines['left'].set_visible(False)
@@ -566,7 +566,7 @@ def waterfall_legacy(expected_value, shap_values=None, features=None, feature_na
     ax3=ax2.twiny()
     ax3.set_xlim(xmin,xmax)
     ax3.set_xticks([expected_value + shap_values.sum(), expected_value + shap_values.sum() + 1e-8]) # The 1e-8 is so matplotlib 3.3 doesn't try and collapse the ticks
-    ax3.set_xticklabels(["$Probability$","$ = "+format_value(fx, "%0.03f")+"$"], fontsize=12, ha="left")
+    ax3.set_xticklabels(["$Prob$","$ = "+format_value(fx, "%0.03f")+"$"], fontsize=12, ha="left")
     tick_labels = ax3.xaxis.get_majorticklabels()
     tick_labels[0].set_transform(tick_labels[0].get_transform() + matplotlib.transforms.ScaledTranslation(-10/72., 0, fig.dpi_scale_trans))
     tick_labels[1].set_transform(tick_labels[1].get_transform() + matplotlib.transforms.ScaledTranslation(12/72., 0, fig.dpi_scale_trans))
